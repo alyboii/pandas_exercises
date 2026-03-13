@@ -1,0 +1,855 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/alyboii/pandas_exercises/blob/master/01_Getting_%26_Knowing_Your_Data/Chipotle/Exercises\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "WXG_lqbggTx-"
+      },
+      "source": [
+        "# Ex2 - Getting and Knowing your Data"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "24lpT1c1gTyB"
+      },
+      "source": [
+        "This time we are going to pull data directly from the internet.\n",
+        "Special thanks to: https://github.com/justmarkham for sharing the dataset and materials.\n",
+        "\n",
+        "### Step 1. Import the necessary libraries"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "id": "G9_LbMRHgTyC"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "mrlYZYh9gTyC"
+      },
+      "source": [
+        "### Step 2. Import the dataset from this [address](https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv)."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "tdGEUPAfgTyC"
+      },
+      "source": [
+        "### Step 3. Assign it to a variable called chipo."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "id": "_0CMDzhsgTyC"
+      },
+      "outputs": [],
+      "source": [
+        "url = 'https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv'\n",
+        "\n",
+        "chipo = pd.read_csv(url, sep = '\\t')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-QxT8ql4gTyD"
+      },
+      "source": [
+        "### Step 4. See the first 10 entries"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 27,
+      "metadata": {
+        "scrolled": false,
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 359
+        },
+        "id": "WQRAzwlwgTyD",
+        "outputId": "562af80c-a7d8-4ed1-e845-1525b4cd77a5"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   order_id  quantity                              item_name  \\\n",
+              "0         1         1           Chips and Fresh Tomato Salsa   \n",
+              "1         1         1                                   Izze   \n",
+              "2         1         1                       Nantucket Nectar   \n",
+              "3         1         1  Chips and Tomatillo-Green Chili Salsa   \n",
+              "4         2         2                           Chicken Bowl   \n",
+              "5         3         1                           Chicken Bowl   \n",
+              "6         3         1                          Side of Chips   \n",
+              "7         4         1                          Steak Burrito   \n",
+              "8         4         1                       Steak Soft Tacos   \n",
+              "9         5         1                          Steak Burrito   \n",
+              "\n",
+              "                                  choice_description item_price  \n",
+              "0                                                NaN     $2.39   \n",
+              "1                                       [Clementine]     $3.39   \n",
+              "2                                            [Apple]     $3.39   \n",
+              "3                                                NaN     $2.39   \n",
+              "4  [Tomatillo-Red Chili Salsa (Hot), [Black Beans...    $16.98   \n",
+              "5  [Fresh Tomato Salsa (Mild), [Rice, Cheese, Sou...    $10.98   \n",
+              "6                                                NaN     $1.69   \n",
+              "7  [Tomatillo Red Chili Salsa, [Fajita Vegetables...    $11.75   \n",
+              "8  [Tomatillo Green Chili Salsa, [Pinto Beans, Ch...     $9.25   \n",
+              "9  [Fresh Tomato Salsa, [Rice, Black Beans, Pinto...     $9.25   "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-bb862409-66e0-4341-ab17-a91624284fc4\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>order_id</th>\n",
+              "      <th>quantity</th>\n",
+              "      <th>item_name</th>\n",
+              "      <th>choice_description</th>\n",
+              "      <th>item_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Chips and Fresh Tomato Salsa</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>$2.39</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Izze</td>\n",
+              "      <td>[Clementine]</td>\n",
+              "      <td>$3.39</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Nantucket Nectar</td>\n",
+              "      <td>[Apple]</td>\n",
+              "      <td>$3.39</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Chips and Tomatillo-Green Chili Salsa</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>$2.39</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2</td>\n",
+              "      <td>2</td>\n",
+              "      <td>Chicken Bowl</td>\n",
+              "      <td>[Tomatillo-Red Chili Salsa (Hot), [Black Beans...</td>\n",
+              "      <td>$16.98</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>3</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Chicken Bowl</td>\n",
+              "      <td>[Fresh Tomato Salsa (Mild), [Rice, Cheese, Sou...</td>\n",
+              "      <td>$10.98</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>3</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Side of Chips</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>$1.69</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>4</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Steak Burrito</td>\n",
+              "      <td>[Tomatillo Red Chili Salsa, [Fajita Vegetables...</td>\n",
+              "      <td>$11.75</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>4</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Steak Soft Tacos</td>\n",
+              "      <td>[Tomatillo Green Chili Salsa, [Pinto Beans, Ch...</td>\n",
+              "      <td>$9.25</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>5</td>\n",
+              "      <td>1</td>\n",
+              "      <td>Steak Burrito</td>\n",
+              "      <td>[Fresh Tomato Salsa, [Rice, Black Beans, Pinto...</td>\n",
+              "      <td>$9.25</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-bb862409-66e0-4341-ab17-a91624284fc4')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-bb862409-66e0-4341-ab17-a91624284fc4 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-bb862409-66e0-4341-ab17-a91624284fc4');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "variable_name": "chipo",
+              "summary": "{\n  \"name\": \"chipo\",\n  \"rows\": 4622,\n  \"fields\": [\n    {\n      \"column\": \"order_id\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 528,\n        \"min\": 1,\n        \"max\": 1834,\n        \"num_unique_values\": 1834,\n        \"samples\": [\n          644,\n          333,\n          991\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"quantity\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0,\n        \"min\": 1,\n        \"max\": 15,\n        \"num_unique_values\": 9,\n        \"samples\": [\n          8,\n          2,\n          15\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"item_name\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 50,\n        \"samples\": [\n          \"Barbacoa Burrito\",\n          \"Crispy Tacos\",\n          \"Chips and Roasted Chili Corn Salsa\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"choice_description\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 1043,\n        \"samples\": [\n          \"[Roasted Chili Corn Salsa, [Black Beans, Sour Cream, Cheese, Guacamole]]\",\n          \"[Tomatillo Red Chili Salsa, [Guacamole, Cheese]]\",\n          \"[Fresh Tomato Salsa, [Rice, Cheese, Sour Cream, Guacamole, Lettuce]]\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"item_price\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 78,\n        \"samples\": [\n          \"$23.50 \",\n          \"$2.39 \",\n          \"$7.40 \"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 27
+        }
+      ],
+      "source": [
+        "chipo.head(10)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "lHeHY6O2gTyD"
+      },
+      "source": [
+        "### Step 5. What is the number of observations in the dataset?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dC7ik3ewgTyD",
+        "outputId": "e21524bf-52da-4ed8-beb3-1508c907114f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<class 'pandas.core.frame.DataFrame'>\n",
+            "RangeIndex: 4622 entries, 0 to 4621\n",
+            "Data columns (total 5 columns):\n",
+            " #   Column              Non-Null Count  Dtype \n",
+            "---  ------              --------------  ----- \n",
+            " 0   order_id            4622 non-null   int64 \n",
+            " 1   quantity            4622 non-null   int64 \n",
+            " 2   item_name           4622 non-null   object\n",
+            " 3   choice_description  3376 non-null   object\n",
+            " 4   item_price          4622 non-null   object\n",
+            "dtypes: int64(2), object(3)\n",
+            "memory usage: 180.7+ KB\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Solution 1\n",
+        "chipo.info()\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 12,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "t0qH9PlagTyE",
+        "outputId": "c197050d-ce52-4314-8ce2-dfb15cefd3de"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "4622"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 12
+        }
+      ],
+      "source": [
+        "# Solution 2\n",
+        "chipo.shape[0]"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "xY6UCjoQgTyE"
+      },
+      "source": [
+        "### Step 6. What is the number of columns in the dataset?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Faxg6pIfgTyF",
+        "outputId": "3fb5e30d-282e-4d72-e36e-5218ce6b921d"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "5"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ],
+      "source": [
+        "chipo.shape[1]"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "g2WJs1cqgTyF"
+      },
+      "source": [
+        "### Step 7. Print the name of all the columns."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 15,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "DFC0N6qigTyF",
+        "outputId": "a56fa59d-e784-454f-861c-f2d83942bb11"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "[Index(['order_id', 'quantity', 'item_name', 'choice_description',\n",
+              "        'item_price'],\n",
+              "       dtype='object')]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 15
+        }
+      ],
+      "source": [
+        "[chipo.columns]"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "sCuK2YmagTyF"
+      },
+      "source": [
+        "### Step 8. How is the dataset indexed?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7L16xzXZgTyF",
+        "outputId": "e5397274-07b8-4347-bb45-b54d10a2ccfc"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "RangeIndex(start=0, stop=4622, step=1)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 16
+        }
+      ],
+      "source": [
+        "chipo.index"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "psw0jvGLgTyF"
+      },
+      "source": [
+        "### Step 9. Which was the most-ordered item?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 37,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ppiyj1oSgTyF",
+        "outputId": "cc064ea0-705f-4514-98bb-71fd019064f3"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "item_name\n",
+            "Chicken Bowl    761\n",
+            "Name: quantity, dtype: int64\n"
+          ]
+        }
+      ],
+      "source": [
+        "c= chipo.groupby(\"item_name\")[\"quantity\"].agg(\"sum\")\n",
+        "c_sorted = c.sort_values(ascending=False)\n",
+        "print(c_sorted.head(1))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "DRetufpHgTyG"
+      },
+      "source": [
+        "### Step 10. For the most-ordered item, how many items were ordered?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 41,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TAFxf7fWgTyG",
+        "outputId": "642fdd36-ef60-42c2-8273-4e2ea1dbecf8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "item_name\n",
+            "Chicken Bowl    761\n",
+            "Name: quantity, dtype: int64\n"
+          ]
+        }
+      ],
+      "source": [
+        "c= chipo.groupby(\"item_name\")[\"quantity\"].agg(\"sum\")\n",
+        "c_sorted = c.sort_values(ascending=False)\n",
+        "print(c_sorted.head(1))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "RJPo0rIPgTyG"
+      },
+      "source": [
+        "### Step 11. What was the most ordered item in the choice_description column?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 52,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Po-evU93gTyG",
+        "outputId": "9e2fa4d0-88cb-42e1-8f60-a1739b537725"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "choice_description\n",
+            "[Diet Coke]    159\n",
+            "Name: quantity, dtype: int64\n"
+          ]
+        }
+      ],
+      "source": [
+        "d =chipo.groupby(\"choice_description\")[\"quantity\"].sum()\n",
+        "d_sorted = d.sort_values(ascending=False)\n",
+        "print(d_sorted.head(1))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4TYvmiNBgTyG"
+      },
+      "source": [
+        "### Step 12. How many items were orderd in total?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 53,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "A9Ep9gAugTyG",
+        "outputId": "146f2b2c-c244-4570-c425-ce53460659df"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "choice_description\n",
+            "[Diet Coke]    159\n",
+            "Name: quantity, dtype: int64\n"
+          ]
+        }
+      ],
+      "source": [
+        "d =chipo.groupby(\"choice_description\")[\"quantity\"].sum()\n",
+        "d_sorted = d.sort_values(ascending=False)\n",
+        "print(d_sorted.head(1))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "FRsVsRsagTyG"
+      },
+      "source": [
+        "### Step 13. Turn the item price into a float"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "lynaTdsjgTyH"
+      },
+      "source": [
+        "#### Step 13.a. Check the item price type"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 66,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_MeJfYrggTyH",
+        "outputId": "a7ad59f0-a559-4a8b-e2cd-9f6de590fef3"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "order_id               int64\n",
+            "quantity               int64\n",
+            "item_name             object\n",
+            "choice_description    object\n",
+            "item_price            object\n",
+            "dtype: object\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(chipo.dtypes)\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4nXHc5whgTyH"
+      },
+      "source": [
+        "#### Step 13.b. Create a lambda function and change the type of item price"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "collapsed": true,
+        "id": "rBOTL_RAgTyH"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "R4L_07aJgTyH"
+      },
+      "source": [
+        "#### Step 13.c. Check the item price type"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "WYDB4zGbgTyH"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "WMb517T3gTyH"
+      },
+      "source": [
+        "### Step 14. How much was the revenue for the period in the dataset?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "H6fywSYJgTyH"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "1vN-YKBcgTyI"
+      },
+      "source": [
+        "### Step 15. How many orders were made in the period?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "a29tOh7sgTyI"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dfPgD0gfgTyI"
+      },
+      "source": [
+        "### Step 16. What is the average revenue amount per order?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "3I5xmN_XgTyJ"
+      },
+      "outputs": [],
+      "source": [
+        "# Solution 1\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "UjjQToUYgTyJ"
+      },
+      "outputs": [],
+      "source": [
+        "# Solution 2\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "1XJzwM8igTyK"
+      },
+      "source": [
+        "### Step 17. How many different items are sold?"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "LKoWQdsQgTyK"
+      },
+      "outputs": [],
+      "source": []
+    }
+  ],
+  "metadata": {
+    "anaconda-cloud": {},
+    "kernelspec": {
+      "display_name": "Python [default]",
+      "language": "python",
+      "name": "python2"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 2
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython2",
+      "version": "2.7.12"
+    },
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
